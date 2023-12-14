@@ -40,6 +40,16 @@
 #endif
 #endif
 
+#if !defined(NB_EXPORT_EXCEPTION)
+#  ifdef __MINGW32__
+// workaround for:
+// error: 'dllexport' implies default visibility, but xxx has already been declared with a different visibility
+#    define NB_EXPORT_EXCEPTION
+#  else
+#    define NB_EXPORT_EXCEPTION NB_EXPORT
+#  endif
+#endif
+
 #if defined(__GNUC__)
 #  define NB_NAMESPACE nanobind __attribute__((visibility("hidden")))
 #else
@@ -64,7 +74,7 @@
 #  define NB_CORE
 #endif
 
-#if !defined(NB_SHARED) && defined(__GNUC__)
+#if !defined(NB_SHARED) && defined(__GNUC__) && not defined(__MINGW32__)
 #  define NB_EXPORT_SHARED __attribute__ ((visibility("hidden")))
 #else
 #  define NB_EXPORT_SHARED

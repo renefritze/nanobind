@@ -27,7 +27,8 @@ private:
 #endif
 
 /// Wraps a Python error state as a C++ exception
-class NB_EXPORT python_error : public std::exception {
+class NB_EXPORT_EXCEPTION python_error : public std::exception
+{
 public:
     NB_EXPORT_SHARED python_error();
     NB_EXPORT_SHARED python_error(const python_error &);
@@ -95,7 +96,8 @@ enum class exception_type {
 };
 
 // Base interface used to expose common Python exceptions in C++
-class NB_EXPORT builtin_exception : public std::runtime_error {
+class NB_EXPORT_EXCEPTION builtin_exception : public std::runtime_error
+{
 public:
     NB_EXPORT_SHARED builtin_exception(exception_type type, const char *what);
     NB_EXPORT_SHARED builtin_exception(builtin_exception &&) = default;
